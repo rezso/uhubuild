@@ -19,15 +19,13 @@ scrollout
 # Páder Rezső <rezso@rezso.net>
 
 BUILD_VERSION="1.4.0"
-VENDOR="ubk.hu"
-PACKAGER=${PACKAGER:=UBK <ubk@ubk.hu>}
-BUILD_GPGKEY=${BUILD_GPGKEY:=UBK}
+VENDOR="rezso.net"
+PACKAGER=${PACKAGER:=Páder Rezső <rezso@rezso.net>}
+BUILD_GPGKEY=${BUILD_GPGKEY:=D1F82444B1ACA1CD}
 
 case `basename $0` in
 	build)
-		export UHUBUILD_DISTR=UBK4;;
-	build-ubk3)
-		export UHUBUILD_DISTR=UBK3;;
+		export UHUBUILD_DISTR=UBK5;;
 	build-ubk4)
 		export UHUBUILD_DISTR=UBK4;;
 	build-ubk5)
