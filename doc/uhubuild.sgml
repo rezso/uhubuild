@@ -442,23 +442,8 @@ semmiképp se saját kézzel-lábbal készített .tar.gz, mert az könnyen lehet
 hogy nem jó.
 
 
-<sect1>uhubuild-extract<p>
-
-Kábé az uhubuild-pack ellentéte. A csomagot kipakolja az aktuális könyvtár
-alá. Ajánlott root-ként, vagy a pretendroot könyvtáron keresztül futtatni,
-hogy a tulajok megmaradjanak.
-
-
-<sect1>uhubuild-expand<p>
-
-Mint az uhubuild-extract, de a data.tar.gz-t nem tömöríti ki. Így jóval
-gyorsabb lesz újra becsomagolni, viszont csak a DEBIAN könyvtár fájljain
-tudunk változtatni, a csomag igazi fájljain nem.
-
-
 
 <sect>Környezeti változók<p>
-
 
 Az uhubuild rendszer működését kívülről olyan környezeti változókkal
 szabályozzuk, melyek neve UHUBUILD_ kezdetű.
