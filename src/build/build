@@ -34,10 +34,7 @@ esac
 
 UHUBUILD_DISTR_NUM=${UHUBUILD_DISTR/UBK/}
 
-[ "$UID" != 0 ] && {
-	redecho "A buildszkript csak root-ként futtatható!"
-	exit 1
-	}
+dieifuser
 
 export UB_ARCH="amd64"
 export UHUBUILD_VAR=/var/uhubuild

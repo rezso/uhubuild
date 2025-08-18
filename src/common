@@ -148,28 +148,28 @@ diepoint ()
 # -----------------------------------------------------------------------------
 warnifroot ()
 {
-	if [ "$UID" == 0 ]; then
+	if [ $(id -u) -eq 0 ]; then
 		warn "Ne root-ként indíts!"
 	fi
 }
 
 warnifuser ()
 {
-	if [ "$UID" != 0 ]; then
+	if [ $(id -u) -ne 0 ]; then
 		warn "Root-ként indíts!"
 	fi
 }
 
 dieifroot ()
 {
-	if [ "$UID" == 0 ]; then
+	if [ $(id -u) -eq 0 ]; then
 		die "Ne root-ként indíts!"
 	fi
 }
 
 dieifuser ()
 {
-	if [ "$UID" != 0 ]; then
+	if [ $(id -u) -ne 0 ]; then
 		die "Root-ként indíts!"
 	fi
 }

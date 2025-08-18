@@ -4,11 +4,8 @@
 #
 # A szkriptet eredetileg készítette: Charlos, 2007. március 9.-én.
 
-[ "$UID" != 0 ] && {
-	echo "Csak a rendszergazdaként indítható ez a szkript!"
-	exit 1
-}
+dieifuser
 
-for i in ubk3 ubk4 ubk5; do
+for i in ubk4 ubk5; do
 	/usr/bin/build-clean-"$i" "$@"
 done
