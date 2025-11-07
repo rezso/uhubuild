@@ -8,7 +8,7 @@ scrollout
 # Az első verziót összeállította: Sári Gábor <saga@kde.hu>
 # 2004. január 19. táján a II. UHU Csomagoló Party után
 #
-# A legfrissebb verzió elérhető a http://ubk.hu/ oldalról.
+# A legfrissebb verzió elérhető a http://rezso.net/ oldalról.
 #
 # A Changelog a csomag forrásában található
 #
@@ -25,14 +25,12 @@ BUILD_GPGKEY=${BUILD_GPGKEY:=D1F82444B1ACA1CD}
 
 case `basename $0` in
 	build)
-		export UHUBUILD_DISTR=UBK5;;
-	build-ubk4)
-		export UHUBUILD_DISTR=UBK4;;
-	build-ubk5)
-		export UHUBUILD_DISTR=UBK5;;
+		export UHUBUILD_DISTR=RN1;;
+	build-rn1)
+		export UHUBUILD_DISTR=RN1;;
 esac
 
-UHUBUILD_DISTR_NUM=${UHUBUILD_DISTR/UBK/}
+UHUBUILD_DISTR_NUM=${UHUBUILD_DISTR/RN/}
 
 dieifuser
 
@@ -203,7 +201,7 @@ for j in "$@"; do
 			appleecho "Az első verziót összeállította: Sári Gábor <saga@kde.hu>"
 			appleecho "2004. január 19. táján a II. UHU Csomagoló Party után"
 			echo
-			appleecho "A legfrissebb verzió elérhető a http://ubk.hu/ oldalról."
+			appleecho "A legfrissebb verzió elérhető a http://rezso.net/ oldalról."
 			exit 0;;
 		esac
 done

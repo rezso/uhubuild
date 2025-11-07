@@ -17,11 +17,9 @@ arch="amd64"
 
 case ${BASENAME} in
 	build-clean)
-		export DISTR=UBK5;;
-	build-clean-ubk4)
-		export DISTR=UBK4;;
-	build-clean-ubk5)
-		export DISTR=UBK5;;
+		export DISTR=RN1;;
+	build-clean-rn1)
+		export DISTR=RN1;;
 esac
 
 dieifuser
