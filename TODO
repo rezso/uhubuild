@@ -1,24 +1,6 @@
-pkgbuild: megnezni az UB_COMPILEDIR alatti access timeokat compile utan
-
-megnezni ezeket tovabbi otletek szempontjabol:
-- debian devscripts
-- debhelpers
-- debsums
-
 uhu-pkg (altal meghivott programok):
 - install-info ne warningozzon ha nincs mit eltavolitania
 - useradd ne sirjon a CREATE_HOME miatt
-
-uhu-policy, esetleg uhubuild support kitalalasa:
-- env
-- daemon
-- cron
-- at
-- logrotate
-- xinetd
-
-policy kerdesek:
-- ahol csak van, a compile vegen legyen "make check" vagy "make test"
 
 ellenorizze hogy nem szerepel-e a /var/uhubuild/work/compile konyvtar egyetlen
 fileban sem (grep -r)
@@ -42,34 +24,6 @@ done
 a /etc alatt minden filet magatol vegyen fel a conffiles-ba, ami esetleg nem
 kell, azt lehessen '-' elotaggal jelezni hogy nem kell.
 
-a kiadott csomagjainkat jo lenne digitalisan hitelesiteni.
-Ezt ki kellene dolgozni.
-
-dirs-ben is jo volna valahogy megkulonboztetni a "hozd letre ot" tipusu
-bejegyzest a "ha eppen letezik, akkor legyen a csomag resze" tipusuaktol,
-utobbi eseten shell wildcard is jatszhatna.
-
-Nehany fajlra automatikusan lepjen eletbe valamilyen jog. Peldaul
-/etc/init.d/daemons alattin automatikusan legyen x bit, ne kelljen ezt
-kezzel megadni a perms-ben. [ez vegulis a fentebb emlitett dh_fixpers-utanzat
-dolga kene legyen, es nem nehany, hanem minden filera. -pozsy]
-
-Irni progit, ami a .md5sums es .stat fajlok alapjan leellenorzi, hogy a
-csomag fajljainak telepitese rendben van-e, illetve igeny eseten beallitja
-jora a jogokat. Vszleg ezt erdemesebb C-ben irni es nem shell szkriptben.
-Sot: jo lenne mindenek elott korulnezni, hogy valami letezo program (pl.
-aide) nem foghato-e be erre a celra sokkal ertelmesebben, mint amilyen egy
-sajat program lenne. (Bezzeg ha dpkg helyett valami csomagkezelot
-hasznalnank, nem lenne ilyen gond :-))
-
-Az osszes fajta output (log, snapshot stb.) szerintem kene hogy
-tartalmazza a progi version-release erteket is. A snapshotra ezen felul
-fuggo kerdes, hogy md5 is legyen-e a fajlnevben.
-
-Ertelmes daemon-kezeles: allitsa le mielott removeolja. Sot, altalaban
-nem artana ha remove elott ellenorizne hogy az adott fileokat hasznalja-e
-valaki (mint exe vagy mint fd). Ugyanez akar konyvtarakra is, mint cwd.
-
 build elott/utan toroljon minden az 'uhubuild' user altal irhato filet.
 Gyk ugy hogy semmi eselye ne legyen informacioatvitelnek 2 build kozott.
 
@@ -79,7 +33,6 @@ depends:
   foo=>bar?
 - "perl-depends" es "python-depends". Aztan "ruby-depends" is. (majd...)
   (tcl-depends is)
-- a (/bin,/sbin,/lib)-bol nem mutasson ki fuggoseg.
 - kulon szoljon ha van fuggoseg a /var/uhubuild/work/compile ala
 - #! script eseten ellenorizze, hogy az elso sor legfeljebb 128 karakter
   hosszu lehet
@@ -106,32 +59,11 @@ figyelmeztessen erosen ha egy postinst vagy hasonlo script ugy kezdodik hogy
 Jo kerdes, hogy ez kinek a feladata: a build rendszere (pl az RPATH-al
 egyenerteku dolog), az uhubuild-check-e, vagy esetleg valami uhu-lint progie.
 
-egy erdekes csomi-teszt lenne, ha megnezne a fileokat hogy a kiterjesztesuk
-megfelel-e a tartalmuknak, pl hogy egy .png file az tenyleg png file-e.
-Persze lehet, hogy nincs sok ertelme, egyszer felirtam valamiert :) [pozsy]
-
-depends: ha egy libet csak a rendszerben talalunk meg, tehat az eppen keszulo
-'foo*' csomagok egyike sem fogja magaval hozni, de ez a rendszeren levo
-lib eppen a rendszeren levo valamelyik 'foo*' csomag altal kerult telepitesre,
-akkor az broki. az ilyet ne fogadja el.
-(mert ugye ekkor a csomag szepen elkeszul, de ha telepiti az ember akkor
- nem fogja megtalalni a libet amit a csomagolaskor meg megtalalt.)
-(sot, igazabol ezt ugy kellene megoldani, hogy ha kell egy /foo/bar file,
-akkor ha az egy "eppen keszulo" csomagbol van fent, akkor az hiba, mert mar
-elobb kellett volna megtalalnia az $UB_INSTALLDIR alatt)
-(sot igazabol a rendszeren levo, azonos "Source:"-bol csomagokra kellene
-figyelni)
-[egmont:] Szerintem ezt ugy a legegyszerubb megoldani, hogy feature freeze
-utan legalabb 2x ujrabuildelsz minden csomagot. Akkor kibukik az ilyen hiba.
-
 depends kereses soran az ldd lepest legjobb lenne "kezzel" elvegezni.
 Addig is, azt mindenkepp meg kellene csinalni, hogy mielott egy libet
 le-ldd-zunk, az rpath szekciokat kiszedni belole. (igy rpath alapjan
 is hamarabb talalja meg az $UB_INSTALLDIR alatt, ami akkor szamithat ha
 egy lib epp most kerul at egyik keszulo csomagbol a masikba)
-
-valahogy ellenorizni, hogy a progik a helyes locale path-t egettek-e magukba,
-lasd ".mo kereses tapasztalat" level by egmont az uhu-dev listan.
 
 rogzitsuk hogy egy filenevben milyen karakterek szerepelhetnek, es install
 utan ellenorizzuk is le rogton, hogy mindegyik megfelelo!
@@ -161,41 +93,3 @@ felhasznalasra is kerulnek.
 konyvtarrol ne lehessen leszedni az X jogot ha van r.
 
 .pc es .la fileok ellenorzese hogy ne legyen bennuk $UB_INSTALLDIR !!!
-
-===============================================================================
-0.2/rc3:
-- A steps/ alatti lepesek ne kulon programkent, hanem besourceolva hivodjanak
-  meg. Igy sokkal jobban lehet szamolni a warningokat es errorokat, meg raadasul
-  egy icipicit gyorsabb is. Raadasul az UB_PACKAGES sem kell hogy exportalt
-  valtozo legyen, lehet belso array. [szeretnem igy, na :) -pozsy]
-
-- File jogosultsagok gatyaba razasa. Sok felvetett kerdes, pl:
-  - a %docdir alatt legyen-e forcolt jog vagy ne? (lasd samba, aki pelda kodot
-    hoz magaval, configure scripttel)
-  - a {,/usr}/{,s}bin alatti fileokra +x jog
-  - ugyanez /etc/init.d eseten
-  stbstb
-  Persze mindezt a perms lepes elott, vagy annak reszekent. Ld meg: dh_fixperms
-
-- Alaposabb FHS ellenorzes.
-  - eloszor legalabb a konyvtarszerkezetre ellenorizzen,
-  - aztan pl a /usr/share/ stb alatti tartalomra is.
-    (pl ne legyen *.h file a /usr/lib alatt)
-
-- depends atalakitasa:
-  - split elott fileonkent kulon-kulon tarolja le a dependencyket
-  - split utan a csomagban levo fileokhoz tartozo listakat osszesitse es
-    konvertalja csomagnevre.
-  Igy lehetove valik hogy megmondjuk egy konkret filera hogy neki megse vagy
-  megis kell egy masik. (pl: ~/usr/bin/akarmi:/bin/sh)
-
-- for i in $(foo); do ...; done -> while read i; do ...; done < <(foo)
-
-- "suggests", "enhances" mezok tamogatasa es hasznalata
-
-- code cleanup:
-  - idezojelek
-  - --
-  - -print0 ahol lehet
-  - kulso programok hivasat csokkenteni ahol lehet
-  - kulso programok meghivasanak szamat csokkenteni ahol lehet (xargs, -R stb)
