@@ -30,8 +30,6 @@ case `basename $0` in
 		export UHUBUILD_DISTR=RN1;;
 esac
 
-UHUBUILD_DISTR_NUM=${UHUBUILD_DISTR/RN/}
-
 dieifuser
 
 export UB_ARCH="amd64"
