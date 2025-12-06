@@ -192,13 +192,9 @@ for pkg in $UB_PACKAGES; do
 		done
 	done
 
-	if type -p sortdir >/dev/null; then
-		sortdir find . -mindepth 1 -type d -empty -print0
-	else
-		        find . -mindepth 1 -type d -empty -print0
-	fi | \
-	  while read -d $'\0' dir; do
-		echo "${dir#.}" >> "$UB_ADMINDIR/dirs-$pkg"
-		echo "    Üres könyvtár a(z) $pkg csomagban: /${dir#./}"
-	done
+    find . -mindepth 1 -type d -empty -print0 | \
+        while read -d $'\0' dir; do
+		    echo "${dir#.}" >> "$UB_ADMINDIR/dirs-$pkg"
+		    echo "    Üres könyvtár a(z) $pkg csomagban: /${dir#./}"
+        done
 done

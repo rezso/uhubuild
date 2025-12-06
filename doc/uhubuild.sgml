@@ -413,12 +413,6 @@ arányt megváltoztatni, és nem tudunk ``--nocheck'' opciót sem adni a
 adunk-e egyáltalán, és ha igen, akkor közönséges fájlt vagy könyvtárat
 nevezünk-e meg ott. Ezzel már csak a ``dpkg-deb'' fog törődni.
 
-Amennyiben a sortdir library telepítve van, a ``dpkg-deb'' programot ezen
-keresztül hívjuk meg, így a deb csomag részét képző tar fájl ábécérendben
-fogja tárolni a fájlokat, nem össze-vissza kiszámíthatatlan sorrendben.
-Ennek akkor látjuk hasznát, ha később ``mc''-ben F3-mal ránézünk a .deb
-fájlra, vagy ha telepítése után kiadjuk a ``dpkg -L csomagnév'' parancsot.
-
 Az uhubuild-pack program tökéletesen alkalmas arra, hogy ha például egy
 CD-re helyhiány miatt a már elkészített UHU csomagokat mondjuk dokumentáció
 nélkül szeretnénk feltenni, akkor ily módon átdolgozzuk a csomagokat. Egy
