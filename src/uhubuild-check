@@ -775,56 +775,51 @@ for pkg in packages/*; do
 		else
 			sect="$(< $UHUBUILD_SRC2DIR/$pkg/section)"
 			case $sect in \
-				Applications/Archiving | \
-				Applications/Configuration | \
-				Applications/Database | \
-				Applications/Editors | \
-				Applications/Edutainment | \
-				Applications/Emulators | \
-				Applications/FileManagers | \
-				Applications/Games | \
-				Applications/Graphics | \
-				Applications/Internet | \
-				Applications/Multimedia | \
-				Applications/Networking | \
-				Applications/Office | \
-				Applications/Printing | \
-				Applications/Scientific | \
-				Applications/Tools | \
-				Applications/Typesetting | \
-				Applications/WindowManagers | \
+				Applications | \
+				Archiving | \
 				Artwork | \
+				Base | \
+				Boot | \
+				Compilers | \
+				Configuration | \
+				Daemons | \
 				Data | \
-				Development/Compilers | \
-				Development/Headers | \
-				Development/Sources | \
-				Development/Tools | \
+				Database | \
+				Development | \
 				Documentation | \
+				Editors | \
+				Edutainment | \
+				Emulators | \
+				FileManagers | \
+				FileSystems | \
 				Firmware | \
+				Fonts | \
+				Games | \
+				Graphics | \
+				Headers | \
+				Internet | \
 				Interpreters | \
 				Libraries | \
-				Libraries/Static | \
 				Meta | \
+				Multimedia | \
+				Networking | \
+				Office | \
 				Perl | \
+				Printing | \
 				Python | \
+				Scientific | \
 				Servers | \
-				System/Base | \
-				System/Boot | \
-				System/Daemons | \
-				System/FileSystems | \
-				System/Fonts | \
-				System/Printing | \
-				System/Shells | \
-				System/SoftwareManagement | \
-				System/Tools | \
-				System/X | \
+				Shells | \
+				SoftwareManagement | \
+				StaticLibraries | \
+				System | \
+				Tools | \
+				WindowManagers | \
+				X | \
 				UHU | \
-				BUDGIE | \
 				ENLIGHTENMENT | \
 				GNOME | \
 				KDE | \
-				LUMINA | \
-				LXDE | \
 				LXQT | \
 				MATE | \
 				XFCE)
