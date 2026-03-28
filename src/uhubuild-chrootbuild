@@ -126,11 +126,16 @@ umount_chroot ()
 	greenecho -n 'Fájlrendszerek leválasztása: '
 
 	echo -n 'dev '
+	umount -lf "$UHUBUILD_CHROOTDIR/dev/pts"
+	umount -lf "$UHUBUILD_CHROOTDIR/dev/shm"
 	umount -lf "$UHUBUILD_CHROOTDIR/dev"
 
 	echo -n $'\b, proc '
 	umount -lf "$UHUBUILD_CHROOTDIR/proc"
 
+	echo -n $'\b, sys '
+	umount -lf "$UHUBUILD_CHROOTDIR/sys"
+	
 	if [ -n "${UHUBUILD_CCACHE_DIR:-}" ]; then
 		echo -n $'\b, ccache '
 		umount -lf "$UHUBUILD_CHROOTDIR/$UHUBUILD_CCACHE_DIR"
@@ -203,8 +208,11 @@ exit_hook my_exit_hook
 greenecho -n 'Fájlrendszerek csatolása: '
 
 for i in 1 2 3; do
+	umount -lf "$UHUBUILD_CHROOTDIR/dev/pts" 2>/dev/null || true
+	umount -lf "$UHUBUILD_CHROOTDIR/dev/shm" 2>/dev/null || true
 	umount -lf "$UHUBUILD_CHROOTDIR/dev" 2>/dev/null || true
 	umount -lf "$UHUBUILD_CHROOTDIR/proc" 2>/dev/null || true
+	umount -lf "$UHUBUILD_CHROOTDIR/sys" 2>/dev/null || true
 	umount -lf "$UHUBUILD_CHROOTDIR/mnt/ccache" 2>/dev/null || true
 	umount -lf "$UHUBUILD_CHROOTDIR/mnt/snapshot" 2>/dev/null || true
 	umount -lf "$UHUBUILD_CHROOTDIR/$UHUBUILD_SRCDIR" 2>/dev/null || true
@@ -212,12 +220,17 @@ done
 
 echo -n 'dev '
 mkdir -p "$UHUBUILD_CHROOTDIR/dev"
-mount --bind /dev  "$UHUBUILD_CHROOTDIR/dev"
-mount -t tmpfs -o rw,nosuid,nodev,mode=1777 none "$UHUBUILD_CHROOTDIR"/dev/shm
+mount --bind /dev  "$UHUBUILD_CHROOTDIR/dev" -t devtmpfs -o mode=0755,nosuid
+mount "$UHUBUILD_CHROOTDIR/dev/shm" -t tmpfs -o mode=1777,nosuid,nodev
+mount "$UHUBUILD_CHROOTDIR/dev/pts" -t devpts -o mode=0620,gid=5,nosuid,noexec
 
 echo -n $'\b, proc '
 mkdir -p "$UHUBUILD_CHROOTDIR/proc"
-mount --bind /proc "$UHUBUILD_CHROOTDIR/proc"
+mount --bind /proc "$UHUBUILD_CHROOTDIR/proc" -t proc -o nosuid,noexec,nodev
+
+echo -n $'\b, sys '
+mkdir -p "$UHUBUILD_CHROOTDIR/sys"
+mount --bind /sys "$UHUBUILD_CHROOTDIR/sys" -t sysfs -o nosuid,noexec,nodev,ro
 
 uhubuild-prepare-chroot
 uhubuild-prepare-chroot $(UHUBUILD_SRCDIR=${_UHUBUILD_SRCDIR} uhubuild-depends)
