@@ -112,6 +112,10 @@ else
 	export CCACHE_DISABLE=true
 fi
 
+if [ -x ${UHUBUILD_CHROOTDIR}/usr/bin/rustc -a -x ${UHUBUILD_CHROOTDIR}/usr/bin/sccache ]; then
+    export RUSTC_WRAPPER=/usr/bin/sccache
+fi
+
 blueecho "Building ${UB_SOURCENAME}-${UB_VERSION}-${UB_RELEASE} for distribution ${UB_DISTRIBUTION}."
 blueecho "Target binary packages: ${UB_PACKAGES}."
 
