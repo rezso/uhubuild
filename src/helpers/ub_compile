@@ -74,7 +74,7 @@ if [ -f Makefile.PL ]; then
 fi
 
 if [ -f Build.PL ]; then
-	perl Build.PL "$@"
+	perl Build.PL -no-packlist "$@"
 	exec ./Build
 fi
 
